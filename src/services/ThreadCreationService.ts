@@ -32,6 +32,7 @@ import ReplyMessageOption from "../models/enums/ReplyMessageOption.js";
 import ToggleOption from "../models/enums/ToggleOption.js";
 import type MessageVariables from "../models/MessageVariables.js";
 import type NeedleBot from "../NeedleBot.js";
+import { MessageType } from "discord.js";
 
 export default class ThreadCreationService {
 	private readonly bot: NeedleBot;
@@ -64,6 +65,8 @@ export default class ThreadCreationService {
 		if (!message.guild?.available) return false;
 		if (message.author.id === message.client.user?.id) return false;
 		if (message.hasThread) return false;
+        //console.log("type=",message.type,MessageType.Reply);
+		if (message.type != MessageType.Reply) return false;
 
 		const guildConfig = this.bot.configs.get(message.guildId);
 		const channelConfig = guildConfig.threadChannels?.find(c => c.channelId === message.channelId);

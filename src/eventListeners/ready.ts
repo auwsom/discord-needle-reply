@@ -47,7 +47,7 @@ export default class ReadyEventListener extends NeedleEventListener {
 			console.error(e);
 		}
 
-		console.log("Ready!");
+		console.log("Ready!!");
 	}
 
 	private async createMissingThreads(client: Client) {
@@ -62,7 +62,6 @@ export default class ReadyEventListener extends NeedleEventListener {
 					if (!channel || !channel.isTextBased()) continue;
 
 					const lastMessage = (await channel.messages.fetch({ limit: 1 })).first();
-					if (lastMessage.type != "Reply") continue;
 					if (!lastMessage) continue;
 
 					const shouldHaveThread = await this.threadCreator.shouldHaveThread(lastMessage);
